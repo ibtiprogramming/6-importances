@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 Importances · Fun Mix</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background: #1a1f2a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .win10-window {
+            max-width: 720px;
+            width: 100%;
+            background: #f0f4fa;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            border: 1px solid #d0d8e0;
+        }
+
+        .title-bar {
+            background: #ffffff;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #d4dce4;
+            cursor: default;
+            user-select: none;
+        }
+
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .win-icon {
+            width: 20px;
+            height: 20px;
+            background: #0078d7;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .title-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e2a3a;
+        }
+
+        .title-controls {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .title-controls span {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #444;
+            font-size: 0.75rem;
+            transition: 0.1s;
+            cursor: default;
+        }
+
+        .title-controls span:hover {
+            background: #e5ebf0;
+        }
+
+        .title-controls .close:hover {
+            background: #e04343;
+            color: white;
+        }
+
+        .win-content {
+            padding: 1.8rem 2rem 2rem;
+            background: #f0f4fa;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #d4dce4;
+        }
+
+        .brand h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #1e2a3a;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand h1 i {
+            color: #0078d7;
+            font-size: 1.5rem;
+        }
+
+        .brand span {
+            background: #e6edf4;
+            padding: 0.2rem 1rem;
+            border-radius: 16px;
+            color: #1f3a5f;
+            font-size: 0.8rem;
+            border: 1px solid #c8d2dd;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            gap: 0.4rem;
+        }
+
+        .step-dot {
+            flex: 1;
+            height: 4px;
+            background: #d4dce4;
+            border-radius: 10px;
+            transition: 0.25s;
+        }
+
+        .step-dot.active {
+            background: #0078d7;
+        }
+
+        .step-dot.thankyou {
+            background: #2e9b5c;
+        }
+
+        .step-dot.thankyou.active {
+            background: #2e9b5c;
+            box-shadow: 0 0 8px rgba(46, 155, 92, 0.3);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 1.8rem 1.8rem 2.2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 0 1px #d8e0e8;
+            border: 1px solid #e8edf2;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.15s;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #eef3f8;
+            padding-bottom: 0.6rem;
+        }
+
+        .card-header i {
+            font-size: 1.6rem;
+            color: #0078d7;
+            width: 2.4rem;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1e2a3a;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex: 1;
+        }
+
+        .card-body label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #5a6e84;
+            font-weight: 600;
+        }
+
+        .card-body input,
+        .card-body select {
+            background: #f9fbfd;
+            border: 1px solid #ccd8e4;
+            border-radius: 4px;
+            padding: 0.5rem 0.8rem;
+            color: #1e2a3a;
+            font-size: 0.85rem;
+            transition: 0.1s;
+            width: 100%;
+        }
+
+        .card-body input:focus,
+        .card-body select:focus {
+            outline: none;
+            border-color: #0078d7;
+            box-shadow: 0 0 0 2px rgba(0, 120, 215, 0.15);
+        }
+
+        .row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        .btn {
+            background: #f0f4fa;
+            border: 1px solid #ccd8e4;
+            border-radius: 4px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #1e2a3a;
+            cursor: pointer;
+            transition: 0.1s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: #0078d7;
+            border: 1px solid #0078d7;
+            color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-primary:hover {
+            background: #106ebe;
+            border-color: #106ebe;
+        }
+
+        .btn-secondary {
+            background: #e6edf4;
+            border-color: #c8d2dd;
+            color: #1e2a3a;
+        }
+
+        .btn-secondary:hover {
+            background: #d5dfe9;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.8rem;
+            font-size: 0.7rem;
+        }
+
+        .btn-success {
+            background: #2e9b5c;
+            border-color: #2e9b5c;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #258a4f;
+            border-color: #258a4f;
+        }
+
+        .output-box {
+            background: #f6f9fc;
+            border-radius: 4px;
+            padding: 0.4rem 0.9rem;
+            color: #1e2a3a;
+            font-size: 0.85rem;
+            border: 1px solid #dde6ef;
+            min-height: 2.4rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+
+        .output-box strong {
+            color: #0a1a2a;
+            font-weight: 600;
+        }
+
+        .strength-meter {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.2rem;
+        }
+
+        .strength-bar {
+            height: 5px;
+            flex: 1;
+            background: #dde6ef;
+            border-radius: 10px;
+            transition: 0.15s;
+        }
+
+        .strength-bar.active {
+            background: #0078d7;
+        }
+        .strength-bar.weak {
+            background: #d94a4a;
+        }
+        .strength-bar.medium {
+            background: #f7b731;
+        }
+        .strength-bar.strong {
+            background: #2e9b5c;
+        }
+
+        .hint-box {
+            background: #eef4fa;
+            border-radius: 4px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
+            color: #1e3a5f;
+            border-left: 3px solid #0078d7;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        small {
+            color: #5a6e84;
+            font-size: 0.65rem;
+        }
+
+        /* Thank You slide styles */
+        .thankyou-slide {
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+
+        .thankyou-slide .big-icon {
+            font-size: 3.5rem;
+            color: #2e9b5c;
+            margin-bottom: 0.8rem;
+        }
+
+        .thankyou-slide h2 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: #1e2a3a;
+            margin-bottom: 1rem;
+        }
+
+        .thankyou-slide p {
+            font-size: 0.95rem;
+            color: #2a3a50;
+            line-height: 1.7;
+            max-width: 90%;
+            margin: 0 auto 0.6rem auto;
+        }
+
+        .thankyou-slide .highlight {
+            color: #0078d7;
+            font-weight: 500;
+        }
+
+        .thankyou-slide .emoji-big {
+            font-size: 2rem;
+            margin-top: 0.5rem;
+            letter-spacing: 0.3rem;
+        }
+
+        .thankyou-slide .signature {
+            margin-top: 0.8rem;
+            font-style: italic;
+            color: #5a6e84;
+            font-size: 0.85rem;
+            border-top: 1px solid #eef3f8;
+            padding-top: 0.8rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.8rem;
+            gap: 0.6rem;
+        }
+
+        .nav-btn {
+            background: #e6edf4;
+            border: 1px solid #c8d2dd;
+            border-radius: 4px;
+            padding: 0.3rem 1.2rem;
+            font-size: 0.8rem;
+            color: #1e2a3a;
+            cursor: pointer;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-btn:hover {
+            background: #d5dfe9;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .nav-indicator {
+            font-size: 0.75rem;
+            color: #5a6e84;
+        }
+
+        .key-hint {
+            background: #e6edf4;
+            border-radius: 4px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            color: #1e3a5f;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            border: 1px solid #c8d2dd;
+        }
+
+        .key-hint i {
+            color: #0078d7;
+        }
+
+        .win10-taskbar {
+            background: #f0f4fa;
+            border-top: 1px solid #d4dce4;
+            padding: 0.2rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .taskbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .taskbar-left i {
+            color: #2a3a50;
+            font-size: 1rem;
+        }
+
+        .taskbar-center {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .taskbar-item {
+            background: #e4ebf2;
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #1e2a3a;
+            border: 1px solid #c8d2dd;
+        }
+
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #2a3a50;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 600px) {
+            .win-content {
+                padding: 1.2rem;
+            }
+            .brand h1 {
+                font-size: 1.4rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .nav-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .thankyou-slide p {
+                font-size: 0.85rem;
+            }
+            .thankyou-slide h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="win10-window">
+        <!-- title bar -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <div class="win-icon"><i class="fas fa-windows"></i></div>
+                <span class="title-text">6 Importances · Fun Mix</span>
+            </div>
+            <div class="title-controls">
+                <span><i class="fas fa-minus"></i></span>
+                <span><i class="fas fa-square"></i></span>
+                <span class="close"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+
+        <!-- main content -->
+        <div class="win-content">
+            <div class="brand">
+                <h1><i class="fas fa-star"></i> 6 Importances</h1>
+                <span><i class="fas fa-arrow-right"></i> One by One</span>
+            </div>
+
+            <!-- step dots -->
+            <div class="step-indicator" id="stepDots">
+                <div class="step-dot active" data-index="0"></div>
+                <div class="step-dot" data-index="1"></div>
+                <div class="step-dot" data-index="2"></div>
+                <div class="step-dot" data-index="3"></div>
+                <div class="step-dot" data-index="4"></div>
+                <div class="step-dot" data-index="5"></div>
+            </div>
+
+            <!-- tool container -->
+            <div id="toolContainer">
+                <!-- tools injected by JS -->
+            </div>
+
+            <!-- navigation + keyboard hint -->
+            <div class="nav-controls">
+                <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> Previous</button>
+                <div class="nav-indicator">
+                    <span id="currentStepDisplay">1</span> / 6
+                    <span class="key-hint"><i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i> arrow keys</span>
+                </div>
+                <button class="nav-btn" id="nextBtn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- fake taskbar -->
+        <div class="win10-taskbar">
+            <div class="taskbar-left">
+                <i class="fas fa-windows"></i>
+                <span style="font-weight:500; font-size:0.75rem;">Search</span>
+                <i class="fas fa-search" style="font-size:0.7rem;"></i>
+            </div>
+            <div class="taskbar-center">
+                <span class="taskbar-item"><i class="fas fa-folder-open"></i> Fun Mix</span>
+                <span class="taskbar-item" id="taskbarStep"><i class="fas fa-arrow-right"></i> 1/6</span>
+            </div>
+            <div class="taskbar-right">
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-volume-up"></i>
+                <span>🔋 100%</span>
+                <span>10:28</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---- tool definitions ----
+            const tools = [{
+                icon: 'fa-calculator',
+                title: 'Smart Calc',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="text" id="calcInput" placeholder="e.g. 12+8*2" value="12+8*2">
+                                <button class="btn btn-primary" id="calcBtn"><i class="fas fa-equals"></i> =</button>
+                            </div>
+                            <div class="output-box" id="calcResult"><strong>28</strong> (smart eval)</div>
+                            <small>+ - * / ( )  &nbsp; safe</small>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    document.getElementById('calcBtn').addEventListener('click', function() {
+                        const input = document.getElementById('calcInput').value;
+                        try {
+                            const sanitized = input.replace(/[^0-9+\-*/(). ]/g, '');
+                            if (!sanitized) throw new Error('empty');
+                            const result = Function('"use strict"; return (' + sanitized + ')')();
+                            document.getElementById('calcResult').innerHTML =
+                                `<strong>${result}</strong> (smart eval)`;
+                        } catch (e) {
+                            document.getElementById('calcResult').innerHTML =
+                                `<span style="color:#c84a4a;">⚠️ invalid expression</span>`;
+                        }
+                    });
+                    document.getElementById('calcBtn').click();
+                }
+            }, {
+                icon: 'fa-thermometer-half',
+                title: 'Temp Convert',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="number" id="tempInput" placeholder="32" value="32">
+                                <select id="tempFrom">
+                                    <option value="C">°C</option>
+                                    <option value="F" selected>°F</option>
+                                    <option value="K">K</option>
+                                </select>
+                                <span style="color:#5a6e84;">→</span>
+                                <select id="tempTo">
+                                    <option value="C" selected>°C</option>
+                                    <option value="F">°F</option>
+                                    <option value="K">K</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="tempBtn"><i class="fas fa-arrow-right"></i> Convert</button>
+                            <div class="output-box" id="tempResult"><strong>0.0</strong> °C</div>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    document.getElementById('tempBtn').addEventListener('click', function() {
+                        const val = parseFloat(document.getElementById('tempInput').value);
+                        if (isNaN(val)) {
+                            document.getElementById('tempResult').innerHTML =
+                                `<span style="color:#c84a4a;">⚠️ enter a number</span>`;
+                            return;
+                        }
+                        const from = document.getElementById('tempFrom').value;
+                        const to = document.getElementById('tempTo').value;
+                        let kelvin;
+                        if (from === 'C') kelvin = val + 273.15;
+                        else if (from === 'F') kelvin = (val - 32) * 5 / 9 + 273.15;
+                        else if (from === 'K') kelvin = val;
+                        let result;
+                        if (to === 'C') result = kelvin - 273.15;
+                        else if (to === 'F') result = (kelvin - 273.15) * 9 / 5 + 32;
+                        else if (to === 'K') result = kelvin;
+                        document.getElementById('tempResult').innerHTML =
+                            `<strong>${result.toFixed(2)}</strong> °${to}`;
+                    });
+                    document.getElementById('tempBtn').click();
+                }
+            }, {
+                icon: 'fa-key',
+                title: 'Password Gen',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="number" id="passLength" value="12" min="4" max="30">
+                                <button class="btn btn-primary" id="passBtn"><i class="fas fa-sync-alt"></i> Generate</button>
+                            </div>
+                            <div class="output-box" id="passDisplay"><strong>P@ssw0rd!</strong> <span style="color:#5a6e84; font-size:0.75rem;">click generate</span></div>
+                            <div class="strength-meter">
+                                <div class="strength-bar" id="str1"></div>
+                                <div class="strength-bar" id="str2"></div>
+                                <div class="strength-bar" id="str3"></div>
+                                <div class="strength-bar" id="str4"></div>
+                            </div>
+                            <div id="strengthLabel" style="font-size:0.7rem; color:#5a6e84;">strength: weak</div>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    function generatePassword(length) {
+                        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=';
+                        let pwd = '';
+                        for (let i = 0; i < length; i++) {
+                            pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+                        }
+                        return pwd;
+                    }
+
+                    function updateStrength(password) {
+                        let score = 0;
+                        if (password.length >= 8) score++;
+                        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+                        if (/\d/.test(password)) score++;
+                        if (/[^a-zA-Z0-9]/.test(password)) score++;
+                        const bars = ['str1', 'str2', 'str3', 'str4'];
+                        bars.forEach(id => document.getElementById(id).className = 'strength-bar');
+                        for (let i = 0; i < score; i++) {
+                            document.getElementById(bars[i]).classList.add('active');
+                        }
+                        const label = document.getElementById('strengthLabel');
+                        let txt = 'weak';
+                        if (score <= 1) txt = 'weak';
+                        else if (score === 2) txt = 'medium';
+                        else if (score === 3) txt = 'strong';
+                        else if (score >= 4) txt = 'very strong';
+                        document.getElementById('str1').className = 'strength-bar';
+                        if (score <= 1) document.getElementById('str1').classList.add('weak');
+                        else if (score === 2) document.getElementById('str1').classList.add('medium');
+                        else if (score >= 3) document.getElementById('str1').classList.add('strong');
+                        label.textContent = 'strength: ' + txt;
+                    }
+                    document.getElementById('passBtn').addEventListener('click', function() {
+                        const len = parseInt(document.getElementById('passLength').value) || 12;
+                        const pwd = generatePassword(Math.min(30, Math.max(4, len)));
+                        document.getElementById('passDisplay').innerHTML = `<strong>${pwd}</strong>`;
+                        updateStrength(pwd);
+                    });
+                    const initPwd = generatePassword(12);
+                    document.getElementById('passDisplay').innerHTML = `<strong>${initPwd}</strong>`;
+                    updateStrength(initPwd);
+                }
+            }, {
+                icon: 'fa-hand-holding-usd',
+                title: 'Tip + Split',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <label>Bill ($)</label>
+                            <input type="number" id="billAmount" value="100" step="0.1">
+                            <div class="row">
+                                <input type="number" id="tipPercent" value="15" placeholder="tip %">
+                                <input type="number" id="peopleCount" value="2" placeholder="people">
+                            </div>
+                            <button class="btn btn-primary" id="tipBtn"><i class="fas fa-calculator"></i> Calculate</button>
+                            <div class="output-box" id="tipResult"><strong>$57.50</strong> each (tip $15.00)</div>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    document.getElementById('tipBtn').addEventListener('click', function() {
+                        const bill = parseFloat(document.getElementById('billAmount').value) || 0;
+                        const tipPct = parseFloat(document.getElementById('tipPercent').value) || 0;
+                        const people = parseInt(document.getElementById('peopleCount').value) || 1;
+                        if (people <= 0) return;
+                        const tipAmount = bill * (tipPct / 100);
+                        const total = bill + tipAmount;
+                        const each = total / people;
+                        document.getElementById('tipResult').innerHTML =
+                            `<strong>$${each.toFixed(2)}</strong> each (tip $${tipAmount.toFixed(2)})`;
+                    });
+                    document.getElementById('tipBtn').click();
+                }
+            }, {
+                icon: 'fa-dice',
+                title: 'Guess Number',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <div class="flex">
+                                <input type="number" id="guessInput" placeholder="1-100" min="1" max="100">
+                                <button class="btn btn-primary btn-sm" id="guessBtn">Guess</button>
+                                <button class="btn btn-secondary btn-sm" id="resetGuessBtn"><i class="fas fa-undo-alt"></i></button>
+                            </div>
+                            <div class="hint-box" id="guessHint">🔮 warm · cold · hot · very close</div>
+                            <div class="output-box" id="guessResult"><span id="guessCount">0</span> guesses</div>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    let secretNumber = Math.floor(Math.random() * 100) + 1;
+                    let guessCount = 0;
+                    const guessInput = document.getElementById('guessInput');
+                    const guessHint = document.getElementById('guessHint');
+                    const guessCountSpan = document.getElementById('guessCount');
+
+                    function giveHint(guess) {
+                        const diff = Math.abs(guess - secretNumber);
+                        if (diff === 0) return '🎉 Correct! 🎉';
+                        if (diff <= 2) return '🔥 Very close!';
+                        if (diff <= 5) return '🔥 Hot!';
+                        if (diff <= 15) return '🌤️ Warm';
+                        if (diff <= 30) return '❄️ Cold';
+                        return '🥶 Freezing cold';
+                    }
+
+                    document.getElementById('guessBtn').addEventListener('click', function() {
+                        const guess = parseInt(guessInput.value);
+                        if (isNaN(guess) || guess < 1 || guess > 100) {
+                            guessHint.textContent = '⚠️ Enter a number 1-100';
+                            return;
+                        }
+                        guessCount++;
+                        guessCountSpan.textContent = guessCount;
+                        if (guess === secretNumber) {
+                            guessHint.innerHTML = '🎉 Correct! 🎉  You got it!';
+                            guessHint.style.borderLeftColor = '#2e9b5c';
+                            return;
+                        }
+                        const hint = giveHint(guess);
+                        guessHint.textContent = '🔮 ' + hint;
+                        guessHint.style.borderLeftColor = '#0078d7';
+                    });
+
+                    document.getElementById('resetGuessBtn').addEventListener('click', function() {
+                        secretNumber = Math.floor(Math.random() * 100) + 1;
+                        guessCount = 0;
+                        guessCountSpan.textContent = '0';
+                        guessHint.textContent = '🔮 new number! warm · cold · hot · very close';
+                        guessHint.style.borderLeftColor = '#0078d7';
+                        guessInput.value = '';
+                    });
+                    guessHint.textContent = '🔮 warm · cold · hot · very close';
+                }
+            }, {
+                icon: 'fa-arrows-alt-h',
+                title: 'Unit Converter',
+                render: function() {
+                    return `
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="number" id="unitInput" placeholder="value" value="1">
+                                <select id="unitFrom">
+                                    <option value="km">km</option>
+                                    <option value="m" selected>m</option>
+                                    <option value="cm">cm</option>
+                                    <option value="mm">mm</option>
+                                    <option value="mi">mi</option>
+                                    <option value="ft">ft</option>
+                                    <option value="in">in</option>
+                                </select>
+                                <span style="color:#5a6e84;">→</span>
+                                <select id="unitTo">
+                                    <option value="km">km</option>
+                                    <option value="m" selected>m</option>
+                                    <option value="cm">cm</option>
+                                    <option value="mm">mm</option>
+                                    <option value="mi">mi</option>
+                                    <option value="ft">ft</option>
+                                    <option value="in">in</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="unitBtn"><i class="fas fa-exchange-alt"></i> Convert</button>
+                            <div class="output-box" id="unitResult"><strong>1.00</strong> m</div>
+                        </div>
+                    `;
+                },
+                init: function() {
+                    document.getElementById('unitBtn').addEventListener('click', function() {
+                        const val = parseFloat(document.getElementById('unitInput').value);
+                        if (isNaN(val) || val < 0) {
+                            document.getElementById('unitResult').innerHTML =
+                                `<span style="color:#c84a4a;">⚠️ enter a positive number</span>`;
+                            return;
+                        }
+                        const from = document.getElementById('unitFrom').value;
+                        const to = document.getElementById('unitTo').value;
+                        const toMeters = {
+                            'km': 1000,
+                            'm': 1,
+                            'cm': 0.01,
+                            'mm': 0.001,
+                            'mi': 1609.344,
+                            'ft': 0.3048,
+                            'in': 0.0254
+                        };
+                        const inMeters = val * toMeters[from];
+                        const result = inMeters / toMeters[to];
+                        document.getElementById('unitResult').innerHTML =
+                            `<strong>${result.toFixed(4)}</strong> ${to}`;
+                    });
+                    document.getElementById('unitBtn').click();
+                }
+            }];
+
+            // ---- state ----
+            let currentIndex = 0;
+            const container = document.getElementById('toolContainer');
+            const dots = document.querySelectorAll('.step-dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const currentStepDisplay = document.getElementById('currentStepDisplay');
+            const taskbarStep = document.getElementById('taskbarStep');
+
+            function renderTool(index) {
+                const tool = tools[index];
+                const cardClass = 'card';
+
+                const html = `
+                    <div class="${cardClass}">
+                        <div class="card-header">
+                            <i class="fas ${tool.icon}"></i>
+                            <h2>${tool.title}</h2>
+                        </div>
+                        ${tool.render()}
+                    </div>
+                `;
+                container.innerHTML = html;
+
+                // update dots
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+
+                currentStepDisplay.textContent = index + 1;
+                taskbarStep.innerHTML = `<i class="fas fa-arrow-right"></i> ${index+1}/${tools.length}`;
+
+                // init tool
+                if (tool.init) tool.init();
+
+                // focus the first input
+                const firstInput = container.querySelector('input');
+                if (firstInput) firstInput.focus();
+
+                // update button states
+                prevBtn.disabled = (index === 0);
+                nextBtn.disabled = (index === tools.length - 1);
+            }
+
+            function goTo(index) {
+                if (index < 0 || index >= tools.length) return;
+                currentIndex = index;
+                renderTool(currentIndex);
+            }
+
+            // ---- event listeners ----
+            prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+            nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+            // keyboard arrows
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    goTo(currentIndex - 1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    goTo(currentIndex + 1);
+                }
+            });
+
+            // ---- start ----
+            goTo(0);
+        })();
+    </script>
+</body>
+</html>
