@@ -1,6 +1,7 @@
 # 6 Importances · Fun Mix
 
 A small Windows 10-inspired, browser-based collection of six mini tools. Open `index.html` in a modern browser to use it. No installation or account is required.
+<img width="788" height="676" alt="image" src="https://github.com/user-attachments/assets/0f109e70-3176-4e5a-82c0-9d1d297111f2" />
 
 ## Included tools
 1. **Smart Calc** — evaluates basic arithmetic expressions.
